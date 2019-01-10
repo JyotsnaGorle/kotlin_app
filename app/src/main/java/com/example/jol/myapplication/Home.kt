@@ -15,13 +15,12 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_data.view.*
 import java.io.BufferedReader
-import java.io.FileReader
 import java.io.InputStreamReader
 
 
-class home : AppCompatActivity() {
+class Home : AppCompatActivity() {
 
-    lateinit var adapter: ItemGridAdapter
+    private lateinit var adapter: ItemGridAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -53,7 +52,7 @@ class home : AppCompatActivity() {
             itemView.itemName.text = item.name
             itemView.imgItem.setImageResource(item.image)
             itemView.setOnClickListener {
-                val intent = Intent(this.context, itemDetail::class.java)
+                val intent = Intent(this.context, ItemDetail::class.java)
                 intent.putExtra("key", "Kotlin")
                 intent.putExtra("itemData", item)
                 startActivity(this.context!!, intent, null)
@@ -61,17 +60,11 @@ class home : AppCompatActivity() {
             return itemView
         }
 
-        override fun getItem(position: Int): Any {
-            return this.itemList[position]
-        }
+        override fun getItem(position: Int) = this.itemList[position]
 
-        override fun getItemId(position: Int): Long {
-            return position.toLong()
-        }
+        override fun getItemId(position: Int) = position.toLong()
 
-        override fun getCount(): Int {
-            return itemList.size
-        }
+        override fun getCount() = itemList.size
 
     }
 }

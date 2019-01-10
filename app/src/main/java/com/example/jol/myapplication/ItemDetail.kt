@@ -7,17 +7,17 @@ import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
-class itemDetail : AppCompatActivity() {
+class ItemDetail : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_detail)
         setSupportActionBar(toolbar)
         val itemData = intent.getParcelableExtra<ItemData>("itemData")
-        intializeData(itemData)
+        initializeData(itemData)
     }
 
-    private fun intializeData(itemData: ItemData) {
+    private fun initializeData(itemData: ItemData) {
         val itemImage = findViewById<ImageView>(R.id.itemImage)
         val itemDescription: TextView = findViewById(R.id.itemDetail)
         itemImage.setImageResource(itemData.image)
