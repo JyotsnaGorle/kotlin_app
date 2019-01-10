@@ -20,7 +20,7 @@ import java.io.InputStreamReader
 
 class home : AppCompatActivity() {
 
-    var adapter: ItemGridAdapter? = null
+    lateinit var adapter: ItemGridAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -32,11 +32,12 @@ class home : AppCompatActivity() {
         val rd = BufferedReader(InputStreamReader(raw))
         val gson = Gson()
         val list: ItemDataList = gson.fromJson(rd, ItemDataList::class.java)
-        list.itemList.forEach { item ->
-            item.image = resources.getIdentifier(item.imagePath, "drawable", packageName)
+
+        val listWithImages = list.itemList.map {
+            it.copy(image = resources.getIdentifier(it.imagePath, "drawable", packageName))
         }
 //        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itemList)
-        adapter = ItemGridAdapter(this, list.itemList)
+        adapter = ItemGridAdapter(this, listWithImages as ArrayList<ItemData>)
         grid.adapter = adapter
     }
 
