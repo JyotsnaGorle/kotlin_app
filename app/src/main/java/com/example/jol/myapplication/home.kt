@@ -1,5 +1,6 @@
 package com.example.jol.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -41,19 +42,14 @@ class home : AppCompatActivity() {
         grid.adapter = adapter
     }
 
-    class ItemGridAdapter : BaseAdapter {
-        var itemList = ArrayList<ItemData>()
-        var context: Context? = null
+    class ItemGridAdapter(context: Context, var itemList: ArrayList<ItemData>) : BaseAdapter() {
+        var context: Context? = context
 
-        constructor(context: Context, itemList: ArrayList<ItemData>) {
-            this.context = context
-            this.itemList = itemList
-        }
-
+        @SuppressLint("ViewHolder", "InflateParams")
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val item = this.itemList[position]
-            var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            var itemView = inflator.inflate(R.layout.item_data, null)
+            val inflator = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val itemView = inflator.inflate(R.layout.item_data, null)
             itemView.itemName.text = item.name
             itemView.imgItem.setImageResource(item.image)
             itemView.setOnClickListener {
