@@ -6,4 +6,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ItemData(val name: String,
                     val description: String,
-                    val image: Int) : Parcelable
+                    var image: Int,
+                    val imagePath: String) : Parcelable
